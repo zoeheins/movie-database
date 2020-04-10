@@ -1,5 +1,5 @@
 {
-  "name": "Movie Database Web Client",
+  "name": "Movie-Database-Web-Client",
   "version": "1.0.0",
   "description": "client for top-movies",
   "main": "index.js",

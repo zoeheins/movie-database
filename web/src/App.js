@@ -11,7 +11,7 @@ class App extends React.Component {
   }
 
   fetchMovies = () => {
-    axios.get('http://localhost:8000/').then((res) => {
+    axios.get('http://localhost:8000/').then(res => {
       const movies = res.data;
       this.setState({ movies });
     });
