@@ -1,6 +1,9 @@
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const express = require('express');
+const client = require('./client.js');
+
+console.log('client', client)
 
 // load environment variables
 // TODO: check environment before loading ENV
