@@ -4,13 +4,13 @@
   "description": "App for rating movies",
   "main": "index.js",
   "scripts": {
-    "server": "node -e \"require('./dist-api/app')\"",
-    "clean": "rimraf dist-api",
-    "transpile": "babel ./api --out-dir dist-api",
+    "server": "node -e \"require('./dist-server/app')\"",
+    "clean": "rimraf dist-server",
+    "transpile": "babel ./server --out-dir dist-server",
     "build": "npm-run-all clean transpile",
     "dev": "npm-run-all build server",
     "watch:dev": "nodemon",
-    "seedDb": "node ./dist-api/seedDb.js"
+    "seedDb": "node ./dist-server/seedDb.js"
   },
   "babel": {
     "presets": [
