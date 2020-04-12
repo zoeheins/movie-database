@@ -1,8 +1,12 @@
-import { getMovies } from '../models/movie.js';
+import Movie from '../models/movie.js';
 
 const index = (req, res) => {
-  getMovies().then((movies) => {
-    res.send(movies);
+  Movie.find().then((movies, err) => {
+    if (err) {
+      res.status(500).send({ error: 'Error fetching movies' });
+    } else {
+      res.status(200).send(movies);
+    }
   });
 };
 

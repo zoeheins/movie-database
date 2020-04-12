@@ -1,8 +1,12 @@
-import { db } from './index.js';
+import mongoose from 'mongoose';
 
-const getMovies = () => {
-  const collection = db.collection('movies');
-  return collection.find().toArray();
-};
+const Schema = mongoose.Schema;
+const MovieSchema = new Schema({
+  title: String,
+  overview: String,
+  voteAverage: Number,
+  releaseDate: String,
+});
+const Movie = mongoose.model('Movie', MovieSchema);
 
-export { getMovies };
+export default Movie;

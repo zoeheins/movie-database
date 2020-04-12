@@ -10,7 +10,7 @@
     "build": "npm-run-all clean transpile",
     "dev": "npm-run-all build server",
     "watch:dev": "nodemon",
-    "seedDb": "node ./dist-server/seedDb.js"
+    "seedDb": "node ./dist-server/scripts/seedDb.js"
   },
   "babel": {
     "presets": [
@@ -39,6 +39,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongodb": "^3.5.5",
+    "mongoose": "^5.9.7",
     "rimraf": "^3.0.2"
   },
   "devDependencies": {

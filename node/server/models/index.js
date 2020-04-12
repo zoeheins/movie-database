@@ -1,12 +1,9 @@
-import MongoClient from 'mongodb';
+import mongoose from 'mongoose';
 
-const connectionUrl = 'mongodb://localhost:27017/movieDatabase';
-let db;
+mongoose.connect(
+  'mongodb://localhost:27017/movieDatabase',
+  { useNewUrlParser: true, useUnifiedTopology: true }
+);
+const db = mongoose.connection;
 
-const init = () =>
-  MongoClient.connect(connectionUrl).then((client) => {
-    db = client.db('movieDatabase');
-    console.log('initializing db....');
-  });
-
-export { db, init };
+export default db;

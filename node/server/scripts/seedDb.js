@@ -1,15 +1,10 @@
 import Client from './client';
+import Movie from '../models/movie.js'
+import db from '../models/index.js';
 
 const apiClient = new Client();
-const MongoClient = require('mongodb').MongoClient;
 
-MongoClient.connect('mongodb://localhost:27017/movieDatabase', function (
-  err,
-  client
-) {
-  const db = client.db('movieDatabase');
-  const movieCollection = db.collection('movies');
-
+db.once('open', function() {
   apiClient.getPopularMovies().then((resp) => {
     const totalPages = resp.total_pages;
 
@@ -26,10 +21,11 @@ MongoClient.connect('mongodb://localhost:27017/movieDatabase', function (
           };
         });
 
-        movies.forEach((movie) => {
-          movieCollection.insertOne(movie);
-        });
+        Movie.create(movies, function(err, movies) {
+          console.log('added movies........')
+        })
+
       });
     });
   });
-});
+})
