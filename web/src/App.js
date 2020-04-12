@@ -19,11 +19,10 @@ class App extends React.Component {
 
   render() {
     const { movies } = this.state;
-    console.log(movies);
     return (
       <div>
-        {movies.map((movie) => (
-          <p key={movie.title}>{movie.title}</p>
+        {movies.map((movie, i) => (
+          <p key={i}>{movie.title}</p>
         ))}
       </div>
     );

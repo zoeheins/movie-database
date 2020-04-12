@@ -4,16 +4,20 @@
   "description": "App for rating movies",
   "main": "index.js",
   "scripts": {
-    "server": "node -e \"require('./dist-server/server')\"",
-    "clean": "rimraf dist-server",
-    "transpile": "babel ./server --out-dir dist-server",
+    "server": "node -e \"require('./dist-api/app')\"",
+    "clean": "rimraf dist-api",
+    "transpile": "babel ./api --out-dir dist-api",
     "build": "npm-run-all clean transpile",
     "dev": "npm-run-all build server",
-    "watch:dev": "nodemon"
+    "watch:dev": "nodemon",
+    "seedDb": "node ./dist-api/seedDb.js"
   },
   "babel": {
     "presets": [
       "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-runtime"
     ]
   },
   "nodemonConfig": {
@@ -27,7 +31,9 @@
   "dependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
+    "@babel/runtime": "^7.9.2",
     "axios": "^0.19.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
