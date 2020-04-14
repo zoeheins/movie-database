@@ -1,32 +1,24 @@
-import axios from 'axios';
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      movies: [],
-    };
-    this.fetchMovies();
-  }
+import Movies from './components/Movies.js';
+import Login from './components/Login.js';
 
-  fetchMovies = () => {
-    axios.get('http://localhost:8000/').then(res => {
-      const movies = res.data;
-      this.setState({ movies });
-    });
-  };
-
-  render() {
-    const { movies } = this.state;
-    return (
-      <div>
-        {movies.map((movie, i) => (
-          <p key={i}>{movie.title}</p>
-        ))}
-      </div>
-    );
-  }
-}
+const App = () => (
+  <Router>
+    <Switch>
+      <Route path='/login'>
+        <Login />
+      </Route>
+      <Route path='/'>
+        <Movies />
+      </Route>
+    </Switch>
+  </Router>
+)
 
 export default App;
