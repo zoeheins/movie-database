@@ -1,18 +1,27 @@
-import cors from 'cors';
 import bodyParser from 'body-parser';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
 import express from 'express';
+import jwt from 'jsonwebtoken';
 
-import index from './controllers/index.js';
 import db from './models/index.js';
-
+import index from './controllers/index.js';
 import User from './models/user.js'
+import withAuth from './middleware.js';
 
 const server = express();
 
+dotenv.config(); // import env
+const secret = process.env.SECRET;
+
 server.use(cors());
+server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
+server.use(cookieParser());
 
 server.get('/', index);
+
 server.post('/register', function(req, res) {
   const { email, password } = req.body;
   const user = new User({ email, password });
@@ -26,6 +35,10 @@ server.post('/register', function(req, res) {
   })
 })
 
+server.get('/secret', withAuth, function(req, res) {
+  res.send('the password is potato')
+})
+
 server.post('/authenticate', function(req, res) {
   const { email, password } = req.body;
   User.findOne({ email }, function(err, user) {
@@ -35,7 +48,12 @@ server.post('/authenticate', function(req, res) {
       res.status(401).json({ error: 'Incorrect email'})
     } else {
       if (user.isCorrectPassword(password)) {
-        res.sendStatus(200)
+        // issue token
+        const payload = { email };
+        const token = jwt.sign(payload, secret, {
+          expiresIn: '1h'
+        });
+        res.cookie('token', token, { httpOnly: true }).sendStatus(200);
       } else {
         res.send(401).json({ error: 'Incorrect login'})
       }
