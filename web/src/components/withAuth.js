@@ -19,20 +19,15 @@ const withAuth = (ComponentToProtect) => {
             const error = new Error(res.error);
             throw error;
           }
-        })
-        .catch((err) => {
+        }).catch((err) => {
           this.setState({ loading: false, redirect: true });
         });
     }
 
     render() {
       const { loading, redirect } = this.state;
-      if (loading) {
-        return null;
-      }
-      if (redirect) {
-        return <Redirect to="/login" />;
-      }
+      if (loading) return null;
+      if (redirect) return <Redirect to="/login" />;
       return <ComponentToProtect {...this.props} />;
     }
   };

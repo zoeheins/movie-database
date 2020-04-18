@@ -1,11 +1,10 @@
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 
-dotenv.config(); // import env
+dotenv.config();
 const secret = process.env.SECRET;
 
 const withAuth = function(req, res, next) {
-  // const token = req.cookies.token;
   const token = 
     req.body.token ||
     req.query.token ||

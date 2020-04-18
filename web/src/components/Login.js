@@ -25,7 +25,6 @@ class Login extends React.Component {
       }),
       headers: { 'Content-Type': 'application/json' }
     }).then((res) => {
-      console.log(res);
       this.props.history.push('/');
     }).catch((err) => {
       console.log(err)
