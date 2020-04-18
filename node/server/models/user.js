@@ -6,7 +6,7 @@ const UserSchema = new Schema({
   password: { type: String, required: true },
 });
 
-UserSchema.methods.isCorrectPassword = function (password) {
+UserSchema.methods.isCorrectPassword = function(password) {
   return password === this.password;
 };
 

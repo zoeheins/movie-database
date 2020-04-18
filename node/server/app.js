@@ -15,12 +15,12 @@ const server = express();
 dotenv.config(); // import env
 const secret = process.env.SECRET;
 
-server.use(cors());
+// server.use(cors());
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
 server.use(cookieParser());
 
-server.get('/', index);
+server.get('/movies', index);
 
 server.post('/register', function(req, res) {
   const { email, password } = req.body;
@@ -49,6 +49,7 @@ server.post('/authenticate', function(req, res) {
     } else {
       if (user.isCorrectPassword(password)) {
         // issue token
+        console.log('issuing token...')
         const payload = { email };
         const token = jwt.sign(payload, secret, {
           expiresIn: '1h'

@@ -11,12 +11,8 @@ import Login from './components/Login.js';
 const App = () => (
   <Router>
     <Switch>
-      <Route path='/login'>
-        <Login />
-      </Route>
-      <Route path='/'>
-        <Movies />
-      </Route>
+      <Route path='/login' component={Login} />
+      <Route path='/' component={Movies}/>
     </Switch>
   </Router>
 )

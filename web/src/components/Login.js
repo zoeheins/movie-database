@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 
 class Login extends React.Component {
@@ -19,18 +18,20 @@ class Login extends React.Component {
   login = (e) => {
     e.preventDefault();
     const { email, password } = this.state;
-    axios.post('http://localhost:8000/authenticate', {
-      email, password,
-    })
-    .then((res) => {
+    fetch('/authenticate', {
+      method: 'POST',
+      body: JSON.stringify({
+        email, password,
+      }),
+      headers: { 'Content-Type': 'application/json' }
+    }).then((res) => {
       console.log(res);
-    })
-    .catch((err) => {
-      this.setState({
-        error: err.response.data.error,
-      });
+      this.props.history.push('/');
+    }).catch((err) => {
+      console.log(err)
     });
   };
+
   render() {
     const { email, error, password } = this.state;
     return (

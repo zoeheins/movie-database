@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 
 class Movies extends React.Component {
@@ -11,10 +10,11 @@ class Movies extends React.Component {
   }
 
   fetchMovies = () => {
-    axios.get('http://localhost:8000/').then(res => {
-      const movies = res.data;
+    fetch('/movies').then(res => {
+      return res.json()
+    }).then(movies => {
       this.setState({ movies });
-    });
+    })
   };
 
   render() {
