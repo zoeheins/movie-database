@@ -11,10 +11,9 @@ const withAuth = (ComponentToProtect) => {
       };
     }
     componentDidMount() {
-      fetch('http://localhost:8000/checkToken')
+      fetch('/checkToken')
         .then((res) => {
           if (res.status === 200) {
-            console.log(res)
             this.setState({ loading: false });
           } else {
             const error = new Error(res.error);
@@ -22,7 +21,6 @@ const withAuth = (ComponentToProtect) => {
           }
         })
         .catch((err) => {
-          console.log(err);
           this.setState({ loading: false, redirect: true });
         });
     }

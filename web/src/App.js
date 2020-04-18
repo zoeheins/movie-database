@@ -7,12 +7,13 @@ import {
 
 import Movies from './components/Movies.js';
 import Login from './components/Login.js';
+import withAuth from './components/withAuth.js';
 
 const App = () => (
   <Router>
     <Switch>
-      <Route path='/login' component={Login} />
-      <Route path='/' component={Movies}/>
+      <Route path='/login' component={Login}/>
+      <Route path='/' component={withAuth(Movies)} />
     </Switch>
   </Router>
 )

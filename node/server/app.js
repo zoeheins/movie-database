@@ -35,10 +35,6 @@ server.post('/register', function(req, res) {
   })
 })
 
-server.get('/secret', withAuth, function(req, res) {
-  res.send('the password is potato')
-})
-
 server.post('/authenticate', function(req, res) {
   const { email, password } = req.body;
   User.findOne({ email }, function(err, user) {
@@ -60,6 +56,10 @@ server.post('/authenticate', function(req, res) {
       }
     }
   })
+})
+
+server.get('/checkToken', withAuth, function(req, res) {
+  res.sendStatus(200)
 })
 
 db.once('open', ()  => {
