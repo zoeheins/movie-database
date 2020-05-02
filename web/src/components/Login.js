@@ -39,7 +39,7 @@ class Login extends React.Component {
         <form onSubmit={this.login}>
           <div>
             <label>Email</label>
-            <input name="email" onChange={this.handleChange} value={email} />
+            <input name="email" required onChange={this.handleChange} value={email} />
           </div>
           <div>
             <label>Password</label>
@@ -47,11 +47,12 @@ class Login extends React.Component {
               name="password"
               onChange={this.handleChange}
               value={password}
+              required
             />
           </div>
           <button type="submit">Login</button>
         </form>
-      <p>Don't have an account <a href='/sign-up'>Sign up here</a></p>
+        <p>Don't have an account <a href='/sign-up'>Sign up here</a></p>
       </div>
     );
   }
