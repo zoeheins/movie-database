@@ -2,10 +2,10 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 
-import db from './models/index.js';
-import movies from './controllers/movies.js';
-import withAuth from './middleware.js';
-import { authenticate, logout, register } from './controllers/auth.js';
+import db from './models/index';
+import movies from './controllers/movies';
+import withAuth from './middleware';
+import { authenticate, logout, register } from './controllers/auth';
 
 const server = express();
 

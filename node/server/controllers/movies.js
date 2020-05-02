@@ -1,4 +1,4 @@
-import Movie from '../models/movie.js';
+import Movie from '../models/movie';
 
 const index = (req, res) => {
   Movie.find().then((movies, err) => {
