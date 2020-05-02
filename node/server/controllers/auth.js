@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 
@@ -8,14 +9,18 @@ const secret = process.env.SECRET;
 
 const register = (req, res) => {
   const { email, password } = req.body;
-  const user = new User({ email, password });
-  user.save(function (err) {
-    if (err) {
-      res.status(500).send('error registering');
-    } else {
-      res.status(200).send('welcome!');
-    }
-  });
+
+  bcrypt.hash(password, 10, (err, hashedPassword) => {
+    const user = new User({ email, password: hashedPassword });
+    console.log(user)
+    user.save(function (err) {
+      if (err) {
+        res.status(500).send('error registering');
+      } else {
+        res.status(200).send('welcome!');
+      }
+    });
+  })
 };
 
 const authenticate = (req, res) => {
@@ -26,17 +31,21 @@ const authenticate = (req, res) => {
     } else if (!user) {
       res.status(401).json({ error: 'Incorrect email' });
     } else {
-      if (user.isCorrectPassword(password)) {
-        // issue token
-        console.log('issuing token...');
-        const payload = { email };
-        const token = jwt.sign(payload, secret, {
-          expiresIn: '1h',
-        });
-        res.cookie('token', token, { httpOnly: true }).sendStatus(200);
-      } else {
-        res.send(401).json({ error: 'Incorrect login' });
-      }
+      user.isCorrectPassword(password, (err, same) => {
+        if (err) {
+          res.status(500).send('Internal error')
+        } else if (!same) {
+          res.status(401).send('Incorrect email or password')
+        } else {
+          // issue token
+          console.log('issuing token...');
+          const payload = { email };
+          const token = jwt.sign(payload, secret, {
+            expiresIn: '1h',
+          });
+          res.cookie('token', token, { httpOnly: true }).sendStatus(200);
+        };
+      })
     }
   });
 };
