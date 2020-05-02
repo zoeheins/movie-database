@@ -38,7 +38,7 @@ class Login extends React.Component {
         <p>{error}</p>
         <form onSubmit={this.login}>
           <div>
-            <label>Username</label>
+            <label>Email</label>
             <input name="email" onChange={this.handleChange} value={email} />
           </div>
           <div>
@@ -51,6 +51,7 @@ class Login extends React.Component {
           </div>
           <button type="submit">Login</button>
         </form>
+      <p>Don't have an account <a href='/sign-up'>Sign up here</a></p>
       </div>
     );
   }

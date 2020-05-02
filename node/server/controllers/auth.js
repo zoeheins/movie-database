@@ -13,7 +13,6 @@ const register = (req, res) => {
     if (err) {
       res.status(500).send('error registering');
     } else {
-      console.log(user.email);
       res.status(200).send('welcome!');
     }
   });
