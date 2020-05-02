@@ -17,10 +17,21 @@ class Movies extends React.Component {
     })
   };
 
+  handleLogout = () => {
+    fetch('/logout', {
+      method: 'POST'
+    }).then(req => {
+      this.props.history.push('/login');
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+
   render() {
     const { movies } = this.state;
     return (
       <div>
+        <button onClick={this.handleLogout}>Logout</button>
         {movies.map((movie, i) => (
           <p key={i}>{movie.title}</p>
         ))}

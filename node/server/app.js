@@ -5,7 +5,7 @@ import express from 'express';
 import db from './models/index.js';
 import movies from './controllers/movies.js';
 import withAuth from './middleware.js';
-import { authenticate, register } from './controllers/auth.js';
+import { authenticate, logout, register } from './controllers/auth.js';
 
 const server = express();
 
@@ -18,6 +18,8 @@ server.get('/movies', movies);
 server.post('/register', register);  // TODO add register page and test
 
 server.post('/authenticate', authenticate)
+
+server.post('/logout', logout);
 
 server.get('/checkToken', withAuth, function(req, res) {
   res.sendStatus(200)

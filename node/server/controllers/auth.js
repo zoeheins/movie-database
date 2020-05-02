@@ -42,4 +42,8 @@ const authenticate = (req, res) => {
   });
 };
 
-export { authenticate, register };
+const logout = (req, res) => {
+  res.clearCookie('token').sendStatus(200);
+};
+
+export { authenticate, logout, register };
