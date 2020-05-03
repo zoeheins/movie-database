@@ -32,9 +32,13 @@ class Movies extends React.Component {
     return (
       <div>
         <button onClick={this.handleLogout}>Logout</button>
-        {movies.map((movie, i) => (
-          <p key={i}>{movie.title}</p>
-        ))}
+        <ul>
+          {movies.map((movie, i) => (
+            <li key={i}>
+              <a href={`/movies/${movie._id}`}>{movie.title}</a>
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }

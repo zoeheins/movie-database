@@ -25,7 +25,7 @@ class SignUp extends React.Component {
       }),
       headers: { 'Content-Type': 'application/json' }
     }).then((res) => {
-      this.props.history.push('/');
+      this.props.history.push('/movies');
       console.log(res)
     }).catch((err) => {
       console.log(err)
