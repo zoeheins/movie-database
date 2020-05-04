@@ -9,7 +9,7 @@ const SortForm = styled.form`
   float: right;
 `;
 
-class Movies extends React.Component {
+class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -75,4 +75,4 @@ class Movies extends React.Component {
   }
 }
 
-export default Movies;
+export default HomePage;

@@ -5,7 +5,7 @@ const BackButton = styled.a`
   float: right;
 `;
 
-class Movie extends React.Component {
+class MoviePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,4 +42,4 @@ class Movie extends React.Component {
   }
 }
 
-export default Movie;
+export default MoviePage;

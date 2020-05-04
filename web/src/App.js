@@ -6,10 +6,10 @@ import {
 } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Login from './components/Login';
-import Movie from './components/Movie';
-import Movies from './components/Movies';
-import SignUp from './components/SignUp';
+import LoginPage from './components/LoginPage';
+import MoviePage from './components/MoviePage';
+import HomePage from './components/HomePage';
+import SignUpPage from './components/SignUpPage';
 import withAuth from './components/withAuth';
 
 const Container = styled.div`
@@ -20,10 +20,10 @@ const App = () => (
   <Container>
     <Router>
       <Switch>
-        <Route path='/login' component={Login}/>
-        <Route path='/sign-up' component={SignUp} />
-        <Route path='/movies/:movieId' component={withAuth(Movie)} />
-        <Route path='/movies' component={withAuth(Movies)} />
+        <Route path='/login' component={LoginPage}/>
+        <Route path='/sign-up' component={SignUpPage} />
+        <Route path='/movies/:movieId' component={withAuth(MoviePage)} />
+        <Route path='/movies' component={withAuth(HomePage)} />
       </Switch>
     </Router>
   </Container>
