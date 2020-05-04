@@ -1,19 +1,35 @@
+import styled from 'styled-components';
 import React from 'react';
+
+const LogoutButton = styled.a`
+  float: right;
+`;
+
+const SortForm = styled.form`
+  float: right;
+`;
 
 class Movies extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: true,
       movies: [],
+      sortBy: 'titleAsc',
     };
-    this.fetchMovies();
+    this.fetchMovies(this.state.sortBy);
   }
 
-  fetchMovies = () => {
-    fetch('/movies').then(res => {
+  fetchMovies = (sortBy) => {
+    const url = `/movies?sortBy=${sortBy}`
+    fetch(url).then(res => {
       return res.json()
     }).then(movies => {
-      this.setState({ movies });
+      this.setState({
+        loading: false,
+        movies,
+        sortBy,
+      });
     })
   };
 
@@ -27,15 +43,30 @@ class Movies extends React.Component {
     })
   }
 
+  handleSort = e => {
+    const sortBy = e.target.value;
+    this.fetchMovies(sortBy)
+  }
+
   render() {
-    const { movies } = this.state;
+    const { loading, movies, sortBy } = this.state;
     return (
       <div>
-        <button onClick={this.handleLogout}>Logout</button>
+        <LogoutButton onClick={this.handleLogout}>Logout</LogoutButton>
+        <h2>Movies</h2>
+        <SortForm>
+          <select onChange={this.handleSort} value={sortBy}>
+            <option value="titleAsc">Sort by title: A-Z</option>
+            <option value="titleDesc">Sort by title: Z-A</option>
+            <option value="ratingDesc">Sort by rating: high-low</option>
+            <option value="ratingAsc">Sort by rating: low-high</option>
+          </select>
+        </SortForm>
+        {loading && <p>Loading.....</p>}
         <ul>
           {movies.map((movie, i) => (
             <li key={i}>
-              <a href={`/movies/${movie._id}`}>{movie.title}</a>
+              <a href={`/movies/${movie._id}`}>{movie.title}: {movie.voteAverage}</a>
             </li>
           ))}
         </ul>

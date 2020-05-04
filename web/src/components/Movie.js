@@ -1,4 +1,9 @@
+import styled from 'styled-components';
 import React from 'react';
+
+const BackButton = styled.a`
+  float: right;
+`;
 
 class Movie extends React.Component {
   constructor(props) {
@@ -23,6 +28,7 @@ class Movie extends React.Component {
     const { movie } = this.state;
     return (
       <div>
+        <BackButton href="/movies">Back</BackButton>
         {movie && (
           <div>
             <h3>{movie.title}</h3>
