@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 import Movie from '../models/movie';
 import User from '../models/user';
 
@@ -38,10 +40,11 @@ const likeMovie = (req, res) => {
   const { email } = req;
   User.findOne({ email }, (err, user) => {
     if (err) {
-      res.status(404)
+      res.status(404);
     } else {
       user.movies.push(movieId);
-      user.validate()
+      user
+        .validate()
         .then((success) => {
           user.save();
         })
@@ -53,4 +56,14 @@ const likeMovie = (req, res) => {
   });
 };
 
-export { likeMovie, getAllMovies, getMovie };
+const getLikedMovies = (req, res) => {
+  const { email } = req;
+  User.findOne({ email }, (err, user) => {
+    const movieIds = user.populate('movie').movies.map((movie) => movie._id);
+    Movie.find({ _id: { $in: movieIds } }, (err, movies) => {
+      res.status(200).send({ movies: movies });
+    });
+  });
+};
+
+export { likeMovie, getAllMovies, getLikedMovies, getMovie };

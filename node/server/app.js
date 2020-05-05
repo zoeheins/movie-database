@@ -3,7 +3,12 @@ import cookieParser from 'cookie-parser';
 import express from 'express';
 
 import db from './models/index';
-import { likeMovie, getAllMovies, getMovie } from './controllers/movies';
+import {
+  likeMovie,
+  getAllMovies,
+  getLikedMovies,
+  getMovie,
+} from './controllers/movies';
 import withAuth from './middleware';
 import { authenticate, logout, register } from './controllers/auth';
 
@@ -16,7 +21,8 @@ server.use(cookieParser());
 // movies
 server.get('/movies', getAllMovies);
 server.get('/movies/:movieId', getMovie);
-server.post('/movies/:movieId/like', withAuth, likeMovie)
+server.post('/movies/:movieId/like', withAuth, likeMovie);
+server.get('/likes', withAuth, getLikedMovies);
 
 // auth
 server.post('/register', register);
