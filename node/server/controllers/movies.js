@@ -33,7 +33,7 @@ const getMovie = (req, res) => {
   });
 };
 
-const favoriteMovie = (req, res) => {
+const likeMovie = (req, res) => {
   const { movieId } = req.params;
   const { email } = req;
   User.findOne({ email }, (err, user) => {
@@ -53,4 +53,4 @@ const favoriteMovie = (req, res) => {
   });
 };
 
-export { favoriteMovie, getAllMovies, getMovie };
+export { likeMovie, getAllMovies, getMovie };

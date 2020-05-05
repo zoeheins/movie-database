@@ -10,6 +10,7 @@ class MoviePage extends React.Component {
     super(props);
     this.state = {
       movie: null,
+      favorited: false,
     };
   }
 
@@ -24,13 +25,10 @@ class MoviePage extends React.Component {
       });
   }
 
-  handleFavorite = () => {
+  handleLike = () => {
     const { movieId } = this.props.match.params;
-    fetch(`/movies/${movieId}/favorite`, {
+    fetch(`/movies/${movieId}/like`, {
       method: 'POST',
-      body: {
-        userId: 1,
-      }
     }).then(res => {
       console.log(res)
     })
@@ -47,7 +45,7 @@ class MoviePage extends React.Component {
             <p>Release date: {movie.releaseDate}</p>
             <p>Average rating: {movie.voteAverage}</p>
             <p>Plot: {movie.overview}</p>
-            <button onClick={this.handleFavorite}>Favorite</button>
+            <button onClick={this.handleLike}>Like</button>
           </div>
         )}
       </div>
