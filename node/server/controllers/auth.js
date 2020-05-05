@@ -9,10 +9,10 @@ const secret = process.env.SECRET;
 
 const register = (req, res) => {
   const { email, password } = req.body;
+  console.log('here')
 
   bcrypt.hash(password, 10, (err, hashedPassword) => {
     const user = new User({ email, password: hashedPassword });
-    console.log(user)
     user.save(function (err) {
       if (err) {
         res.status(500).send('error registering');
@@ -41,7 +41,7 @@ const authenticate = (req, res) => {
           console.log('issuing token...');
           const payload = { email };
           const token = jwt.sign(payload, secret, {
-            expiresIn: '1h',
+            expiresIn: '24h',
           });
           res.cookie('token', token, { httpOnly: true }).sendStatus(200);
         };

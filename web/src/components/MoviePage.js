@@ -24,6 +24,18 @@ class MoviePage extends React.Component {
       });
   }
 
+  handleFavorite = () => {
+    const { movieId } = this.props.match.params;
+    fetch(`/movies/${movieId}/favorite`, {
+      method: 'POST',
+      body: {
+        userId: 1,
+      }
+    }).then(res => {
+      console.log(res)
+    })
+  }
+
   render() {
     const { movie } = this.state;
     return (
@@ -32,9 +44,10 @@ class MoviePage extends React.Component {
         {movie && (
           <div>
             <h3>{movie.title}</h3>
-            <p>Release date: {movie.relaseDate}</p>
+            <p>Release date: {movie.releaseDate}</p>
             <p>Average rating: {movie.voteAverage}</p>
             <p>Plot: {movie.overview}</p>
+            <button onClick={this.handleFavorite}>Favorite</button>
           </div>
         )}
       </div>

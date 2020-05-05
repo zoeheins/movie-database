@@ -1,4 +1,5 @@
 import Movie from '../models/movie';
+import User from '../models/user';
 
 const getAllMovies = (req, res) => {
   const sortMapping = {
@@ -22,7 +23,7 @@ const getAllMovies = (req, res) => {
 };
 
 const getMovie = (req, res) => {
-  const movieId = req.params.movieId;
+  const { movieId } = req.params;
   Movie.findById(movieId, (err, movie) => {
     if (err) {
       res.status(500).send({ error: 'Error fetching movies' });
@@ -32,4 +33,24 @@ const getMovie = (req, res) => {
   });
 };
 
-export { getAllMovies, getMovie };
+const favoriteMovie = (req, res) => {
+  const { movieId } = req.params;
+  const { email } = req;
+  User.findOne({ email }, (err, user) => {
+    if (err) {
+      res.status(404)
+    } else {
+      user.movies.push(movieId);
+      user.validate()
+        .then((success) => {
+          user.save();
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+      res.status(200);
+    }
+  });
+};
+
+export { favoriteMovie, getAllMovies, getMovie };
